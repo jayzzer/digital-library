@@ -1,6 +1,10 @@
 name: Java CI
 
-on: [push]
+on:
+  push:
+    branches: 
+      - master
+      - develop
 
 jobs:
   build:
@@ -13,5 +17,14 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Setup PostgreSQL
+      uses: Harmon758/postgresql-action@v1.0.0
+      with:
+        # POSTGRES_DB - name for the default database that is created
+        postgresql db: library
+        # POSTGRES_USER - create the specified user with superuser power
+        postgresql user: test
+        # POSTGRES_PASSWORD - superuser password
+        postgresql password: 1234
     - name: Build with Maven
       run: mvn -B package --file pom.xml
