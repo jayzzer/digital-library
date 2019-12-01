@@ -1,0 +1,24 @@
+.vk-btn {
+    background-color: #2a5885;
+}
+
+.vk-btn:hover,
+.vk-btn:focus {
+    background-color: #294874;
+}
+
+.google-btn {
+    background-color: #d93025;
+}
+
+.google-btn:hover,
+.google-btn:focus {
+    background-color: #b42e23;
+}
+
+.error-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: #dc3545;
+}
