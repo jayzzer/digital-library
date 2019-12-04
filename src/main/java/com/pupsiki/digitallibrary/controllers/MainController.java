@@ -1,13 +1,17 @@
 package com.pupsiki.digitallibrary.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MainController {
 
     @GetMapping("/")
-    public String home() {
-        return "index";
+    public String home(Model model) {
+        model.addAttribute("view", "index");
+        model.addAttribute("title", "Главная страница");
+
+        return "layout";
     }
 }

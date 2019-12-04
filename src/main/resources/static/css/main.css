@@ -1,0 +1,84 @@
+#advert {
+    position: relative;
+    background-image: url('/img/booklya.jpg');
+    background-size: cover;
+}
+
+#advert > .row {
+    padding: 50px;
+}
+
+#advert:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(90deg, rgba(24, 35, 91, 1) 0%, rgba(8, 152, 199, 0) 30%, rgba(0, 212, 255, 0) 50%, rgba(1, 201, 245, 0) 70%, rgba(24, 35, 91, 1) 100%);
+}
+
+#ad-background {
+    background-color: #18235b;
+}
+
+.book {
+    padding: 10px;
+    text-align: center;
+}
+
+.book-photo {
+    border-radius: 10px;
+}
+
+.book-title {
+    font-weight: bold;
+    text-align: left;
+    font-size: 14px;
+}
+
+.book-author {
+    text-align: left;
+    font-size: 14px;
+}
+
+.category-block {
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: #1b1e2129 0px 2px 10px;
+    color: #000;
+}
+
+.glide__slide {
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.glide__slide:hover {
+    background-color: #d1d1d1;
+}
+
+.glide__arrows > .glide__arrow {
+    top: 40%;
+    color: #007bff;
+    background-color: #fff;
+    box-shadow: #1b1e2129 0px 2px 10px;
+}
+
+.glide__arrow.glide__arrow--left {
+    left: -1em;
+}
+
+.glide__arrow.glide__arrow--right {
+    right: -1em;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+.icon-title {
+    margin-top: 5px;
+    margin-bottom: 0;
+    line-height: 20px;
+}

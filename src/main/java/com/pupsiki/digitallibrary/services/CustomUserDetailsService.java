@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(
                     "No user found with username: "+ email);
         }
-
+        user.setActive(true);
         return new CustomUserDetails(user);
     }
 }

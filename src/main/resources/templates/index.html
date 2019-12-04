@@ -1,18 +1,423 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:fragment="head"></div>
+    <div th:fragment="head">
+        <link rel="stylesheet" href="#" th:href="@{/css/main.css}">
+        <link rel="stylesheet" href="#" th:href="@{/css/glide.core.min.css}">
+        <link rel="stylesheet" href="#" th:href="@{/css/glide.theme.min.css}">
+    </div>
 </head>
 <body>
-<div th:fragment="content" class="row">
-    <p>This is the home page</p>
-    <form action="#" th:action="@{/logout}" method="post">
-        <button type="submit">Logout</button>
-    </form>
+<div th:fragment="content">
+    <div id="ad-background" class="container-fluid">
+        <div id="advert" class="container">
+            <div class="row h-100 text-white">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="main-text">
+                            <h1 class="font-weight-bold">BookЛя - "Купите один раз - читайте многократно"</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12 col-sm-12 col-md-7 col-lg-7">
+                        <div class="row icons">
+                            <div class="col-4 col-sm-2">
+                                <div class="icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <p class="icon-title">10000+ книг</p>
+                            </div>
+                            <div class="col-4 col-sm-3">
+                                <div class="icon">
+                                    <i class="fas fa-book-open"></i>
+                                </div>
+                                <p class="icon-title">2000+ бесплатных книг</p>
+                            </div>
+                            <div class="col-4 col-sm-3 col-md-3 col-lg-3 col-xl-2">
+                                <div class="icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="icon-title">+100 новинок каждый месяц</p>
+                            </div>
+                            <div class="col-6 col-sm-3 mt-2 mt-sm-0">
+                                <div class="icon">
+                                    <i class="fas fa-puzzle-piece"></i>
+                                </div>
+                                <p class="icon-title">Подборки и рекомендации</p>
+                            </div>
+                            <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-2 mt-2 mt-xl-0">
+                                <div class="icon">
+                                    <i class="fas fa-wifi"></i>
+                                </div>
+                                <p class="icon-title">Офлайн или онлайн</p>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <a href="#" th:href="@{/registration}" class="btn btn-primary">Зарегистрироваться</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <a href="/registration" th:href="@{/registration}" class="btn btn-block btn-outline-info">Регистрация</a>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="category-block mt-4">
+                    <h4 id="free" class="font-weight-bold text-center mb-4">Бесплатные книги</h4>
+                    <div id="free-carousel" class="glide">
+                        <div class="glide__track" data-glide-el="track">
+                            <ul class="glide__slides">
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book1.jpg}"/>
+                                        <div class="book-title">
+                                            Некоторые не попадут в ад
+                                        </div>
+                                        <div class="book-author">
+                                            Захар Прилепин
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book2.jpg}"/>
+                                        <div class="book-title">
+                                            Каждый вдох
+                                        </div>
+                                        <div class="book-author">
+                                            Николас Спаркс
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book3.jpg}"/>
+                                        <div class="book-title">
+                                            Дом, в котором горит свет
+                                        </div>
+                                        <div class="book-author">
+                                            Эльчин Сафарли
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book4.jpg}"/>
+                                        <div class="book-title">
+                                            Девчока, которая всегда смеялась последней
+                                        </div>
+                                        <div class="book-author">
+                                            Александр Цыпкин
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book5.jpg}"/>
+                                        <div class="book-title">
+                                            Мальчик в свете фар
+                                        </div>
+                                        <div class="book-author">
+                                            Самюэль Бьорк
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book6.jpg}"/>
+                                        <div class="book-title">
+                                            Птичий рынок
+                                        </div>
+                                        <div class="book-author">
+                                            Людмила Улицкая
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book7.jpg}"/>
+                                        <div class="book-title">
+                                            Исчезновение Стефани Мейлер
+                                        </div>
+                                        <div class="book-author">
+                                            Жоэль Диккер
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="glide__arrows" data-glide-el="controls">
+                            <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><i
+                                    class="fas fa-arrow-left"></i></button>
+                            <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><i
+                                    class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="show-more text-center">
+                        <a href="#" class="btn btn-outline-primary">Все бесплатные книги</a>
+                    </div>
+                </div>
+                <div class="category-block mt-4">
+                    <h4 id="new" class="font-weight-bold text-center mb-4">Новинки</h4>
+                    <div id="new-carousel" class="glide">
+                        <div class="glide__track" data-glide-el="track">
+                            <ul class="glide__slides">
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book1.jpg}"/>
+                                        <div class="book-title">
+                                            Некоторые не попадут в ад
+                                        </div>
+                                        <div class="book-author">
+                                            Захар Прилепин
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book2.jpg}"/>
+                                        <div class="book-title">
+                                            Каждый вдох
+                                        </div>
+                                        <div class="book-author">
+                                            Николас Спаркс
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book3.jpg}"/>
+                                        <div class="book-title">
+                                            Дом, в котором горит свет
+                                        </div>
+                                        <div class="book-author">
+                                            Эльчин Сафарли
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book4.jpg}"/>
+                                        <div class="book-title">
+                                            Девчока, которая всегда смеялась последней
+                                        </div>
+                                        <div class="book-author">
+                                            Александр Цыпкин
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book5.jpg}"/>
+                                        <div class="book-title">
+                                            Мальчик в свете фар
+                                        </div>
+                                        <div class="book-author">
+                                            Самюэль Бьорк
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book6.jpg}"/>
+                                        <div class="book-title">
+                                            Птичий рынок
+                                        </div>
+                                        <div class="book-author">
+                                            Людмила Улицкая
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book7.jpg}"/>
+                                        <div class="book-title">
+                                            Исчезновение Стефани Мейлер
+                                        </div>
+                                        <div class="book-author">
+                                            Жоэль Диккер
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="glide__arrows" data-glide-el="controls">
+                            <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><i
+                                    class="fas fa-arrow-left"></i></button>
+                            <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><i
+                                    class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="show-more text-center">
+                        <a href="#" class="btn btn-outline-primary">Все новинки</a>
+                    </div>
+                </div>
+                <div class="category-block mt-4">
+                    <h4 id="top" class="font-weight-bold text-center mb-4">Топ книг</h4>
+                    <div id="top-carousel" class="glide">
+                        <div class="glide__track" data-glide-el="track">
+                            <ul class="glide__slides">
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book1.jpg}"/>
+                                        <div class="book-title">
+                                            Некоторые не попадут в ад
+                                        </div>
+                                        <div class="book-author">
+                                            Захар Прилепин
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book2.jpg}"/>
+                                        <div class="book-title">
+                                            Каждый вдох
+                                        </div>
+                                        <div class="book-author">
+                                            Николас Спаркс
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book3.jpg}"/>
+                                        <div class="book-title">
+                                            Дом, в котором горит свет
+                                        </div>
+                                        <div class="book-author">
+                                            Эльчин Сафарли
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book4.jpg}"/>
+                                        <div class="book-title">
+                                            Девчока, которая всегда смеялась последней
+                                        </div>
+                                        <div class="book-author">
+                                            Александр Цыпкин
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book5.jpg}"/>
+                                        <div class="book-title">
+                                            Мальчик в свете фар
+                                        </div>
+                                        <div class="book-author">
+                                            Самюэль Бьорк
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book6.jpg}"/>
+                                        <div class="book-title">
+                                            Птичий рынок
+                                        </div>
+                                        <div class="book-author">
+                                            Людмила Улицкая
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="glide__slide">
+                                    <div class="book">
+                                        <img class="book-photo" th:src="@{/img/book7.jpg}"/>
+                                        <div class="book-title">
+                                            Исчезновение Стефани Мейлер
+                                        </div>
+                                        <div class="book-author">
+                                            Жоэль Диккер
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="glide__arrows" data-glide-el="controls">
+                            <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><i
+                                    class="fas fa-arrow-left"></i></button>
+                            <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><i
+                                    class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="show-more text-center">
+                        <a href="#" class="btn btn-outline-primary">Весь топ книг</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div th:fragment="scripts"></div>
+<div th:fragment="scripts">
+    <script src="#" th:src="@{/js/glide.min.js}"></script>
+    <script src="#" th:src="@{/js/smooth-scroll.min.js}"></script>
+    <script>
+        var scroll = new SmoothScroll('a[href*="#"]');
+        new Glide('#free-carousel', {
+            type: 'carousel',
+            startAt: 0,
+            perView: 7,
+            breakpoints: {
+                1200: {
+                    perView: 6
+                },
+                991: {
+                    perView: 4
+                },
+                767: {
+                    perView: 3
+                },
+                420: {
+                    perView: 2
+                }
+            }
+        }).mount();
+        new Glide('#new-carousel', {
+            type: 'carousel',
+            startAt: 0,
+            perView: 7,
+            breakpoints: {
+                1200: {
+                    perView: 6
+                },
+                991: {
+                    perView: 4
+                },
+                767: {
+                    perView: 3
+                },
+                420: {
+                    perView: 2
+                }
+            }
+        }).mount();
+        new Glide('#top-carousel', {
+            type: 'carousel',
+            startAt: 0,
+            perView: 7,
+            breakpoints: {
+                1200: {
+                    perView: 6
+                },
+                991: {
+                    perView: 4
+                },
+                767: {
+                    perView: 3
+                },
+                420: {
+                    perView: 2
+                }
+            }
+        }).mount();
+    </script>
+</div>
 </body>
 </html>

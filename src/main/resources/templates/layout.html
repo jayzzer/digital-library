@@ -6,9 +6,7 @@
 </head>
 <body>
     <div th:replace="fragments/header :: header"></div>
-    <div class="container">
-        <div th:replace="${view} :: content"></div>
-    </div>
+    <div th:replace="${view} :: content"></div>
     <div th:replace="fragments/footer :: footer"></div>
 
     <th:block th:include="fragments/scripts :: scripts"></th:block>
