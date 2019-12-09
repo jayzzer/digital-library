@@ -24,6 +24,22 @@
                         </ul>
                     </div>
                     <div class="form-group">
+                        <label for="name">Имя *</label>
+                        <input type="text" class="form-control" id="name" name="name" th:field="*{name}" th:errorclass="is-invalid"
+                               placeholder="Иван" required>
+                        <ul class="error-list">
+                            <li th:each="err : ${#fields.errors('name')}" th:text="${err}" />
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <label for="surname">Фамилия *</label>
+                        <input type="text" class="form-control" id="surname" name="surname" th:field="*{surname}" th:errorclass="is-invalid"
+                               placeholder="Иванов" required>
+                        <ul class="error-list">
+                            <li th:each="err : ${#fields.errors('surname')}" th:text="${err}" />
+                        </ul>
+                    </div>
+                    <div class="form-group">
                         <label for="password">Пароль *</label>
                         <input type="password" class="form-control" id="password" name="password" th:field="*{password}" th:errorclass="is-invalid"
                                required>

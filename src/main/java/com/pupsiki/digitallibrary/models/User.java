@@ -1,7 +1,6 @@
 package com.pupsiki.digitallibrary.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "Users")
@@ -12,9 +11,27 @@ public class User {
     private int id;
     @Column(unique = true)
     private String email;
+    private String name;
+    private String surname;
     private String password;
     private boolean isActive;
     private String roles;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
     public User() {
     }

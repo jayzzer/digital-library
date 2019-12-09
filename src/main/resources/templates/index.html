@@ -70,82 +70,28 @@
                     <div id="free-carousel" class="glide">
                         <div class="glide__track" data-glide-el="track">
                             <ul class="glide__slides">
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book1.jpg}"/>
-                                        <div class="book-title">
-                                            Некоторые не попадут в ад
+                                <li th:each="book : ${topFreeBooks}" class="glide__slide">
+                                    <a href="#" th:href="@{/books/{id}(id = ${book.id})}">
+                                        <div class="book">
+                                            <img class="book-photo"
+                                                 th:src="@{/img/{imgName}.jpg(imgName = ${book.image})}"/>
+                                            <div class="rating mb-2">
+                                                <span th:with="ratingLoop=${T(Math).floor(book.rating)}, ratingEmpty=5-${ratingLoop}, ratingDec=${book.rating} % 1 &gt; 0.5 ? 2 : 1"
+                                                      class="stars mr-2">
+                                                    <span class="full-stars"><i th:if="${ratingLoop} &gt; 0.0"
+                                                                                th:each="i : ${#numbers.sequence(0, ratingLoop-1)}"
+                                                                                class="fas fa-star"></i></span>
+                                                    <i th:if="${book.rating} % 1 &gt; 0.5"
+                                                       class="fas fa-star-half-alt"></i>
+                                                    <span class="empty-stars"><i
+                                                            th:each="i : ${#numbers.sequence(0, ratingEmpty - ratingDec)}"
+                                                            class="far fa-star"></i></span>
+                                                </span>
+                                            </div>
+                                            <div class="book-title" th:text="${book.title}"></div>
+                                            <div class="book-author" th:text="${book.author}"></div>
                                         </div>
-                                        <div class="book-author">
-                                            Захар Прилепин
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book2.jpg}"/>
-                                        <div class="book-title">
-                                            Каждый вдох
-                                        </div>
-                                        <div class="book-author">
-                                            Николас Спаркс
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book3.jpg}"/>
-                                        <div class="book-title">
-                                            Дом, в котором горит свет
-                                        </div>
-                                        <div class="book-author">
-                                            Эльчин Сафарли
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book4.jpg}"/>
-                                        <div class="book-title">
-                                            Девчока, которая всегда смеялась последней
-                                        </div>
-                                        <div class="book-author">
-                                            Александр Цыпкин
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book5.jpg}"/>
-                                        <div class="book-title">
-                                            Мальчик в свете фар
-                                        </div>
-                                        <div class="book-author">
-                                            Самюэль Бьорк
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book6.jpg}"/>
-                                        <div class="book-title">
-                                            Птичий рынок
-                                        </div>
-                                        <div class="book-author">
-                                            Людмила Улицкая
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book7.jpg}"/>
-                                        <div class="book-title">
-                                            Исчезновение Стефани Мейлер
-                                        </div>
-                                        <div class="book-author">
-                                            Жоэль Диккер
-                                        </div>
-                                    </div>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -165,82 +111,28 @@
                     <div id="new-carousel" class="glide">
                         <div class="glide__track" data-glide-el="track">
                             <ul class="glide__slides">
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book1.jpg}"/>
-                                        <div class="book-title">
-                                            Некоторые не попадут в ад
+                                <li th:each="book : ${topNew}" class="glide__slide">
+                                    <a href="#" th:href="@{/books/{id}(id = ${book.id})}">
+                                        <div class="book">
+                                            <img class="book-photo"
+                                                 th:src="@{/img/{imgName}.jpg(imgName = ${book.image})}"/>
+                                            <div class="rating mb-2">
+                                                <span th:with="ratingLoop=${T(Math).floor(book.rating)}, ratingEmpty=5-${ratingLoop}, ratingDec=${book.rating} % 1 &gt; 0.5 ? 2 : 1"
+                                                      class="stars mr-2">
+                                                    <span class="full-stars"><i th:if="${ratingLoop} &gt; 0.0"
+                                                                                th:each="i : ${#numbers.sequence(0, ratingLoop-1)}"
+                                                                                class="fas fa-star"></i></span>
+                                                    <i th:if="${book.rating} % 1 &gt; 0.5"
+                                                       class="fas fa-star-half-alt"></i>
+                                                    <span class="empty-stars"><i
+                                                            th:each="i : ${#numbers.sequence(0, ratingEmpty - ratingDec)}"
+                                                            class="far fa-star"></i></span>
+                                                </span>
+                                            </div>
+                                            <div class="book-title" th:text="${book.title}"></div>
+                                            <div class="book-author" th:text="${book.author}"></div>
                                         </div>
-                                        <div class="book-author">
-                                            Захар Прилепин
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book2.jpg}"/>
-                                        <div class="book-title">
-                                            Каждый вдох
-                                        </div>
-                                        <div class="book-author">
-                                            Николас Спаркс
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book3.jpg}"/>
-                                        <div class="book-title">
-                                            Дом, в котором горит свет
-                                        </div>
-                                        <div class="book-author">
-                                            Эльчин Сафарли
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book4.jpg}"/>
-                                        <div class="book-title">
-                                            Девчока, которая всегда смеялась последней
-                                        </div>
-                                        <div class="book-author">
-                                            Александр Цыпкин
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book5.jpg}"/>
-                                        <div class="book-title">
-                                            Мальчик в свете фар
-                                        </div>
-                                        <div class="book-author">
-                                            Самюэль Бьорк
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book6.jpg}"/>
-                                        <div class="book-title">
-                                            Птичий рынок
-                                        </div>
-                                        <div class="book-author">
-                                            Людмила Улицкая
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book7.jpg}"/>
-                                        <div class="book-title">
-                                            Исчезновение Стефани Мейлер
-                                        </div>
-                                        <div class="book-author">
-                                            Жоэль Диккер
-                                        </div>
-                                    </div>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -260,82 +152,28 @@
                     <div id="top-carousel" class="glide">
                         <div class="glide__track" data-glide-el="track">
                             <ul class="glide__slides">
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book1.jpg}"/>
-                                        <div class="book-title">
-                                            Некоторые не попадут в ад
+                                <li th:each="book : ${topBooks}" class="glide__slide">
+                                    <a href="#" th:href="@{/books/{id}(id = ${book.id})}">
+                                        <div class="book">
+                                            <img class="book-photo"
+                                                 th:src="@{/img/{imgName}.jpg(imgName = ${book.image})}"/>
+                                            <div class="rating mb-2">
+                                                <span th:with="ratingLoop=${T(Math).floor(book.rating)}, ratingEmpty=5-${ratingLoop}, ratingDec=${book.rating} % 1 &gt; 0.5 ? 2 : 1"
+                                                      class="stars mr-2">
+                                                    <span class="full-stars"><i th:if="${ratingLoop} &gt; 0.0"
+                                                                                th:each="i : ${#numbers.sequence(0, ratingLoop-1)}"
+                                                                                class="fas fa-star"></i></span>
+                                                    <i th:if="${book.rating} % 1 &gt; 0.5"
+                                                       class="fas fa-star-half-alt"></i>
+                                                    <span class="empty-stars"><i
+                                                            th:each="i : ${#numbers.sequence(0, ratingEmpty - ratingDec)}"
+                                                            class="far fa-star"></i></span>
+                                                </span>
+                                            </div>
+                                            <div class="book-title" th:text="${book.title}"></div>
+                                            <div class="book-author" th:text="${book.author}"></div>
                                         </div>
-                                        <div class="book-author">
-                                            Захар Прилепин
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book2.jpg}"/>
-                                        <div class="book-title">
-                                            Каждый вдох
-                                        </div>
-                                        <div class="book-author">
-                                            Николас Спаркс
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book3.jpg}"/>
-                                        <div class="book-title">
-                                            Дом, в котором горит свет
-                                        </div>
-                                        <div class="book-author">
-                                            Эльчин Сафарли
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book4.jpg}"/>
-                                        <div class="book-title">
-                                            Девчока, которая всегда смеялась последней
-                                        </div>
-                                        <div class="book-author">
-                                            Александр Цыпкин
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book5.jpg}"/>
-                                        <div class="book-title">
-                                            Мальчик в свете фар
-                                        </div>
-                                        <div class="book-author">
-                                            Самюэль Бьорк
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book6.jpg}"/>
-                                        <div class="book-title">
-                                            Птичий рынок
-                                        </div>
-                                        <div class="book-author">
-                                            Людмила Улицкая
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="glide__slide">
-                                    <div class="book">
-                                        <img class="book-photo" th:src="@{/img/book7.jpg}"/>
-                                        <div class="book-title">
-                                            Исчезновение Стефани Мейлер
-                                        </div>
-                                        <div class="book-author">
-                                            Жоэль Диккер
-                                        </div>
-                                    </div>
+                                    </a>
                                 </li>
                             </ul>
                         </div>

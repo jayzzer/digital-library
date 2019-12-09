@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:fragment="head">
+        <link rel="stylesheet" href="../static/css/registration.css" th:href="@{/css/book.css}">
+    </div>
+</head>
+<body>
+<div th:fragment="content" class="container">
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <img class="book-img mb-3" src="#" width="100%"
+                             th:src="@{/img/{bookImg}.jpg(bookImg = ${book.image})}" alt="Обложка"/>
+                        <a href="#" class="btn btn-success btn-block">Купить за <span th:text="${book.price}"></span> руб.</a>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <h1 th:text="${book.title}"></h1>
+                        <div class="rating mb-2">
+                            <span th:with="ratingLoop=${T(Math).floor(book.rating)}, ratingEmpty=5-${ratingLoop}, ratingDec=${book.rating} % 1 &gt; 0.5 ? 2 : 1"
+                                  class="stars mr-2">
+                                <span class="full-stars"><i th:if="${ratingLoop} &gt; 0.0"
+                                                            th:each="i : ${#numbers.sequence(0, ratingLoop-1)}"
+                                                            class="fas fa-star"></i></span>
+                                <i th:if="${book.rating} % 1 &gt; 0.5" class="fas fa-star-half-alt"></i>
+                                <span class="empty-stars"><i
+                                        th:each="i : ${#numbers.sequence(0, ratingEmpty - ratingDec)}"
+                                        class="far fa-star"></i></span>
+                            </span>
+                            <span th:text="${book.rating}"></span>
+                        </div>
+                        <div class="desc-line">
+                            Автор: <span th:text="${book.author}"></span>
+                        </div>
+                        <div class="desc-line">
+                            Издатель: <span th:text="${book.publisher}"></span>
+                        </div>
+                        <div class="desc-line">
+                            Жанр: <span th:text="${book.genre}"></span>
+                        </div>
+                        <div class="desc-line">
+                            Год: <span th:text="${book.year}"></span>
+                        </div>
+                        <div class="desc-line mb-4">
+                            Дата поступления: <span th:text="${#dates.format(book.createdAt, 'dd-MM-yyyy')}"></span>
+                        </div>
+                        <h4>О книге:</h4>
+                        <p th:text="${book.description}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:fragment="scripts"></div>
+</body>
+</html>

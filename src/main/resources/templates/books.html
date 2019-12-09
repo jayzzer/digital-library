@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:fragment="head">
+        <link rel="stylesheet" href="../static/css/book.css" th:href="@{/css/book.css}">
+    </div>
+</head>
+<body>
+<div th:fragment="content" class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Книги</h1>
+            <div class="row">
+                <div class="col-3">
+                    <h4>Категории</h4>
+                    <div class="categories">
+                        <p class="category">Детектив</p>
+                        <p class="category">Детектив</p>
+                        <p class="category">Детектив</p>
+                        <p class="category">Детектив</p>
+                        <p class="category">Детектив</p>
+                        <p class="category">Детектив</p>
+                        <p class="category">Детектив</p>
+                        <p class="category">Детектив</p>
+                        <p class="category">Детектив</p>
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="row mb-2">
+                        <div class="col-2">по названию</div>
+                        <div class="col-2">по цене</div>
+                        <div class="col-2">по рейтингу</div>
+                        <div class="col-2">по дате</div>
+                    </div>
+                    <div class="row">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="book">
+                                            <img class="book-photo"
+                                                 th:src="@{/img/book1.jpg}" width="100%" />
+                                            <div class="book-title">Название книги</div>
+                                            <div class="book-author">Автор</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="book">
+                                            <img class="book-photo"
+                                                 th:src="@{/img/book1.jpg}" width="100%" />
+                                            <div class="book-title">Название книги</div>
+                                            <div class="book-author">Автор</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="book">
+                                            <img class="book-photo"
+                                                 th:src="@{/img/book1.jpg}" width="100%" />
+                                            <div class="book-title">Название книги</div>
+                                            <div class="book-author">Автор</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="book">
+                                            <img class="book-photo"
+                                                 th:src="@{/img/book1.jpg}" width="100%" />
+                                            <div class="book-title">Название книги</div>
+                                            <div class="book-author">Автор</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:fragment="scripts"></div>
+</body>
+</html>

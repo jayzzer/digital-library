@@ -26,6 +26,9 @@ public class UserService implements IUserService {
         User user = new User();
         user.setPassword(accountDto.getPassword());
         user.setEmail(accountDto.getEmail());
+        user.setName(accountDto.getName());
+        user.setSurname(accountDto.getSurname());
+        user.setActive(true);
         user.setRoles("ROLE_USER");
         return repository.save(user);
     }

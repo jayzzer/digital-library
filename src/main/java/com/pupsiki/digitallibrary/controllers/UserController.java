@@ -7,6 +7,7 @@ import com.pupsiki.digitallibrary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +27,11 @@ public class UserController {
 
     @GetMapping("/user")
     public String user(Model model, Principal principal) {
+        model.addAttribute("view", "userProfile");
+        model.addAttribute("title", "Профиль пользователя");
         model.addAttribute("name", principal.getName());
 
-        return "userProfile";
+        return "layout";
     }
 
     @GetMapping("/registration")
@@ -75,11 +78,7 @@ public class UserController {
             return modelAndView;
         }
         else {
-            ModelAndView modelAndView = new ModelAndView("layout", "user", user);
-            modelAndView.addObject("view", "userProfile");
-            modelAndView.addObject("title", "Профиль пользователя");
-
-            return modelAndView;
+            return new ModelAndView("redirect:/user");
         }
     }
 

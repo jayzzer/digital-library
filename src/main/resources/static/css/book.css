@@ -1,0 +1,15 @@
+.book-img {
+    box-shadow: #000 3px 4px 5px;
+}
+
+.rating {
+    color: #fec41f;
+}
+
+.fa-star-half-alt {
+    margin-right: -4px;
+}
+
+.full-stars {
+    margin-right: -4px;
+}

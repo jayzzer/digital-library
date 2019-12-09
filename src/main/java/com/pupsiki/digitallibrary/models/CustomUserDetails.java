@@ -12,17 +12,23 @@ import java.util.stream.Collectors;
 public class CustomUserDetails implements UserDetails {
 
     private String email;
+    private String name;
     private String password;
     private List<GrantedAuthority> authorities;
     private boolean active;
 
     public CustomUserDetails(User user) {
         this.email = user.getEmail();
+        this.name = user.getName();
         this.password = user.getPassword();
         this.authorities = Arrays.stream(user.getRoles().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
         this.active = user.isActive();
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
