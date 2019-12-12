@@ -4,6 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Book {
@@ -24,6 +25,9 @@ public class Book {
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private Date createdAt;
+    @OneToMany(mappedBy = "book")
+    Set<Deal> deals;
+
 
 
     public Book() {
@@ -72,7 +76,6 @@ public class Book {
     public void setRating(float rating) {
         this.rating = rating;
     }
-
 
     public int getId() {
         return id;

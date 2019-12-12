@@ -1,6 +1,7 @@
 package com.pupsiki.digitallibrary.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Users")
@@ -16,6 +17,8 @@ public class User {
     private String password;
     private boolean isActive;
     private String roles;
+    @OneToMany(mappedBy = "user")
+    Set<Deal> deals;
 
     public String getName() {
         return name;
