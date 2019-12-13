@@ -2,77 +2,190 @@
 <html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:fragment="head">
-        <link rel="stylesheet" href="../static/css/book.css" th:href="@{/css/book.css}">
+        <link rel="stylesheet" href="../static/css/book.css" th:href="@{/css/books.css}">
     </div>
 </head>
 <body>
-<div th:fragment="content" class="container">
-    <div class="row">
-        <div class="col-12">
-            <h1>Книги</h1>
-            <div class="row">
-                <div class="col-3">
-                    <h4>Категории</h4>
-                    <div class="categories">
-                        <p class="category">Детектив</p>
-                        <p class="category">Детектив</p>
-                        <p class="category">Детектив</p>
-                        <p class="category">Детектив</p>
-                        <p class="category">Детектив</p>
-                        <p class="category">Детектив</p>
-                        <p class="category">Детектив</p>
-                        <p class="category">Детектив</p>
-                        <p class="category">Детектив</p>
+<div th:fragment="content">
+    <div id="heading" class="container-fluid">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h1 class="text-white"
+                        th:text="(${param.genre} == null or ${param.genre[0]} == '') ? 'Каталог книг' : ${param.genre}"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12 col-lg-9 offset-lg-3 order-2 order-lg-1">
+                <div class="row mb-2 sorts">
+                    <th:block th:switch="${param.sort} != null ? ${param.sort[0]} : ${param.sort}">
+                        <a th:case="'title-d'" href="#" th:href="@{/books(genre=${param.genre}, sort='title-u')}"
+                           class="col-12 col-sm col-xl-2 down active">по названию</a>
+                        <a th:case="'title-u'" href="#" th:href="@{/books(genre=${param.genre}, sort='title-d')}"
+                           class="col-12 col-sm col-xl-2 up active">по названию</a>
+                        <a th:case="*" href="#" th:href="@{/books(genre=${param.genre}, sort='title-d')}"
+                           class="col-12 col-sm col-xl-2 down">по названию</a>
+                    </th:block>
+                    <th:block th:switch="${param.sort} != null ? ${param.sort[0]} : ${param.sort}">
+                        <a th:case="'price-d'" href="#" th:href="@{/books(genre=${param.genre}, sort='price-u')}"
+                           class="col-12 col-sm col-xl-2 down active">по цене</a>
+                        <a th:case="'price-u'" href="#" th:href="@{/books(genre=${param.genre}, sort='price-d')}"
+                           class="col-12 col-sm col-xl-2 up active">по цене</a>
+                        <a th:case="*" href="#" th:href="@{/books(genre=${param.genre}, sort='price-d')}"
+                           class="col-12 col-sm col-xl-2 down">по цене</a>
+                    </th:block>
+                    <th:block th:switch="${param.sort} != null ? ${param.sort[0]} : ${param.sort}">
+                        <a th:case="'rating-d'" href="#" th:href="@{/books(genre=${param.genre}, sort='rating-u')}"
+                           class="col-12 col-sm col-xl-2 down active">по рейтингу</a>
+                        <a th:case="'rating-u'" href="#" th:href="@{/books(genre=${param.genre}, sort='rating-d')}"
+                           class="col-12 col-sm col-xl-2 up active">по рейтингу</a>
+                        <a th:case="*" href="#" th:href="@{/books(genre=${param.genre}, sort='rating-d')}"
+                           class="col-12 col-sm col-xl-2 down">по рейтингу</a>
+                    </th:block>
+                    <th:block th:switch="${param.sort} != null ? ${param.sort[0]} : ${param.sort}">
+                        <a th:case="'createdAt-d'" href="#"
+                           th:href="@{/books(genre=${param.genre}, sort='createdAt-u')}"
+                           class="col-12 col-md col-xl-2 down active">по
+                            дате</a>
+                        <a th:case="'createdAt-u'" href="#"
+                           th:href="@{/books(genre=${param.genre}, sort='createdAt-d')}"
+                           class="col-12 col-md col-xl-2 up active">по
+                            дате</a>
+                        <a th:case="*" href="#" th:href="@{/books(genre=${param.genre}, sort='createdAt-d')}"
+                           class="col-12 col-md col-xl-2 down">по дате</a>
+                    </th:block>
+                </div>
+            </div>
+            <div class="col-12 col-lg-3 navbar-expand-lg order-1 order-lg-2 mb-2">
+                <button class="btn btn-block btn-primary navbar-custom-toggler" type="button" data-toggle="collapse" data-target="#categories"
+                        aria-controls="categories" aria-expanded="false" aria-label="Toggle categories">
+                    Категории
+                </button>
+                <div id="categories" class="categories collapse navbar-custom-collapse mt-2">
+                    <div class="category" th:each="category : ${categories}">
+                        <a href="#" th:href="@{/books(genre=${category.name})}" th:text="${category.name}"></a>
                     </div>
                 </div>
-                <div class="col-9">
-                    <div class="row mb-2">
-                        <div class="col-2">по названию</div>
-                        <div class="col-2">по цене</div>
-                        <div class="col-2">по рейтингу</div>
-                        <div class="col-2">по дате</div>
-                    </div>
-                    <div class="row">
-                        <div class="card w-100">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <div class="book">
-                                            <img class="book-photo"
-                                                 th:src="@{/img/book1.jpg}" width="100%" />
-                                            <div class="book-title">Название книги</div>
-                                            <div class="book-author">Автор</div>
+            </div>
+            <div class="col-12 col-lg-9 order-3">
+                <div class="card w-100">
+                    <div class="card-body">
+                        <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4">
+                            <div class="col mb-4" th:each="book : ${books}">
+                                <a href="#" th:href="@{/books/{id}(id = ${book.id})}">
+                                    <div class="book p-2">
+                                        <img class="book-photo"
+                                             th:src="@{/img/{imgName}.jpg(imgName = ${book.image})}" width="100%"/>
+                                        <div class="rating mb-2">
+                                                        <span th:with="ratingLoop=${T(Math).floor(book.rating)}, ratingEmpty=5-${ratingLoop}, ratingDec=${book.rating} % 1 &gt; 0.5 ? 2 : 1"
+                                                              class="stars mr-2">
+                                                            <span class="full-stars"><i th:if="${ratingLoop} &gt; 0.0"
+                                                                                        th:each="i : ${#numbers.sequence(0, ratingLoop-1)}"
+                                                                                        class="fas fa-star"></i></span>
+                                                            <i th:if="${book.rating} % 1 &gt; 0.5"
+                                                               class="fas fa-star-half-alt"></i>
+                                                            <span class="empty-stars"><i
+                                                                    th:each="i : ${#numbers.sequence(0, ratingEmpty - ratingDec)}"
+                                                                    class="far fa-star"></i></span>
+                                                        </span>
+                                        </div>
+                                        <div class="book-title" th:text="${book.title}"></div>
+                                        <div class="book-author" th:text="${book.author}"></div>
+                                        <div class="book-price mt-2">
+                                            <span th:text="${book.price}"></span> руб.
                                         </div>
                                     </div>
-                                    <div class="col-3">
-                                        <div class="book">
-                                            <img class="book-photo"
-                                                 th:src="@{/img/book1.jpg}" width="100%" />
-                                            <div class="book-title">Название книги</div>
-                                            <div class="book-author">Автор</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="book">
-                                            <img class="book-photo"
-                                                 th:src="@{/img/book1.jpg}" width="100%" />
-                                            <div class="book-title">Название книги</div>
-                                            <div class="book-author">Автор</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="book">
-                                            <img class="book-photo"
-                                                 th:src="@{/img/book1.jpg}" width="100%" />
-                                            <div class="book-title">Название книги</div>
-                                            <div class="book-author">Автор</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12 col-lg-9 offset-lg-3">
+                <ul class="pagination d-block text-center"
+                    th:with="currentPage=${param.p} != null ? ${T(Integer).parseInt(param.p[0]) + 1} : 1">
+                    <li class="page prev-page" th:if="${currentPage} > 1">
+                        <a href="#"
+                           th:href="@{/books(genre=${param.genre}, sort=${param.sort}, p=${currentPage}-2)}">«</a>
+                    </li>
+                    <th:block th:if="${currentPage} > 3">
+                        <th:block th:if="${books.totalPages} - ${currentPage} >= 3">
+                            <li class="page">
+                                <a href="#" th:href="@{/books(genre=${param.genre}, sort=${param.sort}, p=0)}">1</a>
+                            </li>
+                            <li class="page empty">
+                                <a>...</a>
+                            </li>
+                            <li class="page"
+                                th:each="page : ${#numbers.sequence(currentPage-1, currentPage+1)}"
+                                th:classappend="${currentPage} == ${page} ? active">
+                                <a href="#" th:href="@{/books(genre=${param.genre}, sort=${param.sort}, p=${page}-1)}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li class="page empty">
+                                <a>...</a>
+                            </li>
+                            <li class="page">
+                                <a href="#"
+                                   th:href="@{/books(genre=${param.genre}, sort=${param.sort}, p=${books.totalPages}-1)}"
+                                   th:text="${books.totalPages}"></a>
+                            </li>
+                        </th:block>
+
+                        <th:block th:if="${books.totalPages} - ${currentPage} < 3">
+                            <li class="page">
+                                <a href="#" th:href="@{/books(genre=${param.genre}, sort=${param.sort}, p=0)}">1</a>
+                            </li>
+                            <li class="page empty">
+                                <a>...</a>
+                            </li>
+                            <li class="page"
+                                th:each="page : ${#numbers.sequence(books.totalPages - 3, books.totalPages)}"
+                                th:classappend="${currentPage} == ${page} ? active">
+                                <a href="#" th:href="@{/books(genre=${param.genre}, sort=${param.sort}, p=${page}-1)}"
+                                   th:text="${page}"></a>
+                            </li>
+                        </th:block>
+                    </th:block>
+
+                    <th:block th:if="${currentPage} <= 3">
+                        <th:block th:if="${books.totalPages} > 5">
+                            <li class="page" th:each="page : ${#numbers.sequence(1, 4)}"
+                                th:classappend="${currentPage} == ${page} ? active">
+                                <a href="#"
+                                   th:href="@{/books(genre=${param.genre}, sort=${param.sort}, p=${page}-1)}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li class="page empty">
+                                <a>...</a>
+                            </li>
+                            <li class="page">
+                                <a href="#"
+                                   th:href="@{/books(genre=${param.genre}, sort=${param.sort}, p=${books.totalPages}-1)}"
+                                   th:text="${books.totalPages}"></a>
+                            </li>
+                        </th:block>
+
+                        <th:block th:if="${books.totalPages} <= 5">
+                            <li class="page" th:each="page : ${#numbers.sequence(1, books.totalPages)}"
+                                th:classappend="${currentPage} == ${page} ? active">
+                                <a href="#"
+                                   th:href="@{/books(genre=${param.genre}, sort=${param.sort}, p=${page}-1)}"
+                                   th:text="${page}"></a>
+                            </li>
+                        </th:block>
+                    </th:block>
+
+                    <li class="page next-page" th:if="${currentPage} < ${books.totalPages}">
+                        <a href="#"
+                           th:href="@{/books(genre=${param.genre}, sort=${param.sort}, p=${currentPage})}">»</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
