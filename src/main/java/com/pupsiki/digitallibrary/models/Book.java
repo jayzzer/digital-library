@@ -9,6 +9,8 @@ import java.util.Set;
 @Entity
 public class Book {
 
+    @OneToMany(mappedBy = "book")
+    Set<Deal> deals;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -17,7 +19,7 @@ public class Book {
     private String author;
     private String publisher;
     private String genre;
-    @Column(length=8192)
+    @Column(length = 8192)
     private String description;
     private int year;
     private float price;
@@ -25,9 +27,6 @@ public class Book {
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private Date createdAt;
-    @OneToMany(mappedBy = "book")
-    Set<Deal> deals;
-
 
 
     public Book() {

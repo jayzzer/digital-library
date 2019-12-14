@@ -13,3 +13,7 @@
 .full-stars {
     margin-right: -4px;
 }
+
+.stripe-button-el {
+    display: none !important;
+}

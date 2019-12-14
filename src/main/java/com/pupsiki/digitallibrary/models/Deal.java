@@ -3,7 +3,6 @@ package com.pupsiki.digitallibrary.models;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
@@ -25,9 +24,16 @@ public class Deal {
     public Deal() {
     }
 
-    public Deal(User user, Book book, Date deal_date){
+    public Deal(User user, Book book){
         this.book = book;
         this.user = user;
+    }
+
+    public Date getDeal_date() {
+        return deal_date;
+    }
+
+    public void setDeal_date(Date deal_date) {
         this.deal_date = deal_date;
     }
 

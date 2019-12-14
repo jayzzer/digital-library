@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 public class CustomUserDetails implements UserDetails {
 
+    private Integer id;
     private String email;
     private String name;
     private String password;
@@ -18,17 +19,22 @@ public class CustomUserDetails implements UserDetails {
     private boolean active;
 
     public CustomUserDetails(User user) {
+        this.id = user.getId();
         this.email = user.getEmail();
         this.name = user.getName();
         this.password = user.getPassword();
         this.authorities = Arrays.stream(user.getRoles().split(","))
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList());
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
         this.active = user.isActive();
     }
 
     public String getName() {
         return name;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     @Override

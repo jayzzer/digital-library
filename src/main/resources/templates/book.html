@@ -3,18 +3,47 @@
 <head>
     <div th:fragment="head">
         <link rel="stylesheet" href="../static/css/registration.css" th:href="@{/css/book.css}">
+        <script src="https://js.stripe.com/v3/" th:src="@{https://js.stripe.com/v3/}"></script>
     </div>
 </head>
 <body>
 <div th:fragment="content" class="container">
-    <div class="row">
+    <div class="row mt-4">
+        <div class="col-12" th:if="${param.success} != null">
+            <div class="alert alert-success text-center" role="alert">
+                Книга успешно куплена!
+            </div>
+        </div>
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-12 col-md-4">
                         <img class="book-img mb-3" src="#" width="100%"
                              th:src="@{/img/{bookImg}.jpg(bookImg = ${book.image})}" alt="Обложка"/>
-                        <a href="#" class="btn btn-success btn-block">Купить за <span th:text="${book.price}"></span> руб.</a>
+                        <form action="/charge" th:action="@{/charge}" method="post" id="checkout-form">
+                            <input type='hidden' th:value='${book.price}' name='amount'/>
+                            <input type='hidden' th:value='${book.id}' name='bookId'/>
+                            <script
+                                    src='https://checkout.stripe.com/checkout.js'
+                                    class='stripe-button'
+                                    th:attr='data-key=${stripePublicKey},
+                                    data-amount=${book.price*100}'
+                                    data-currency="rub"
+                                    data-name='BookЛя'
+                                    data-image='/img/owl-icon.jpg'
+                                    data-description='Покупка книги'
+                                    data-locale='auto'
+                                    data-zip-code='false'>
+                            </script>
+                            <button type="submit" class="btn btn-success btn-block"
+                                    th:if="${#authentication.getName()} != anonymousUser and ${alreadyBought} == false">Купить за <span
+                                    th:text="${book.price}"></span> руб.
+                            </button>
+                            <a href="/ulogin" th:href="@{/ulogin}" th:if="${#authentication.getName()} == anonymousUser and ${alreadyBought} == false"
+                               class="btn btn-success btn-block">Купить за <span th:text="${book.price}"></span> руб.
+                            </a>
+                            <a href="#" class="btn btn-block btn-outline-info disabled" disabled th:if="${alreadyBought} == true">Читать</a>
+                        </form>
                     </div>
                     <div class="col-12 col-md-8">
                         <h1 th:text="${book.title}"></h1>

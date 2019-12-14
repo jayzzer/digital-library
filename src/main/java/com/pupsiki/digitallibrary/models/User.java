@@ -7,6 +7,8 @@ import java.util.Set;
 @Table(name = "Users")
 public class User {
 
+    @OneToMany(mappedBy = "user")
+    Set<Deal> deals;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -17,8 +19,18 @@ public class User {
     private String password;
     private boolean isActive;
     private String roles;
-    @OneToMany(mappedBy = "user")
-    Set<Deal> deals;
+
+    public User() {
+    }
+
+    public User(String email, String name, String surname, String password, boolean isActive, String roles) {
+        this.email = email;
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+        this.isActive = isActive;
+        this.roles = roles;
+    }
 
     public String getName() {
         return name;
@@ -36,15 +48,6 @@ public class User {
         this.surname = surname;
     }
 
-    public User() {
-    }
-
-    public User(String email, String password, boolean isActive, String roles) {
-        this.email = email;
-        this.password = password;
-        this.isActive = isActive;
-        this.roles = roles;
-    }
 
     public int getId() {
         return id;
