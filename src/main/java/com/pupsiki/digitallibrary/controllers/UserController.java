@@ -1,10 +1,11 @@
 package com.pupsiki.digitallibrary.controllers;
 
 import com.pupsiki.digitallibrary.annotations.EmailExistsException;
-import com.pupsiki.digitallibrary.models.User;
-import com.pupsiki.digitallibrary.models.UserDto;
+import com.pupsiki.digitallibrary.models.*;
+import com.pupsiki.digitallibrary.repositories.DealRepository;
 import com.pupsiki.digitallibrary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -19,17 +20,23 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class UserController {
     @Autowired
     private UserService service;
+    @Autowired
+    private DealRepository dealRepository;
 
     @GetMapping("/user")
-    public String user(Model model, Principal principal) {
+    public String user(Model model, Authentication authentication) {
+        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+        List<UserBooksDto> userBooks = dealRepository.getAllUserBooks(user.getId());
+
         model.addAttribute("view", "userProfile");
         model.addAttribute("title", "Профиль пользователя");
-        model.addAttribute("name", principal.getName());
+        model.addAttribute("books", userBooks);
 
         return "layout";
     }

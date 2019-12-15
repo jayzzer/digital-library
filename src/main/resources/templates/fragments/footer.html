@@ -3,8 +3,27 @@
 <head>
 </head>
 <body>
-<footer th:fragment="footer">
-    <!--Футер-->
+<footer th:fragment="footer" class="mt-auto py-3 pt-4 my-md-3 pt-md-5 border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md order-12 order-md-0">
+                <img class="mb-2" src="#" th:src="@{/img/owl-icon.jpg}" alt="" width="40">
+                <small class="d-block mb-3 text-muted">© GrayTeam 2019</small>
+            </div>
+            <div class="col-12 col-md text-center">
+                <h5><a href="#" th:href="@{/books}">Все книги</a></h5>
+            </div>
+            <div class="col-12 col-md text-center">
+                <h5><a href="#" th:href="${view} == 'index' ? '#free' : '/books?sort=price-u'">Бесплатные книги</a></h5>
+            </div>
+            <div class="col-12 col-md text-center">
+                <h5><a href="#" th:href="${view} == 'index' ? '#new' : '/books?sort=createdAt-d'">Новинки</a></h5>
+            </div>
+            <div class="col-12 col-md text-center">
+                <h5><a href="#" th:href="${view} == 'index' ? '#top' : '/books?sort=rating-d'">Топ книг</a></h5>
+            </div>
+        </div>
+    </div>
 </footer>
 </body>
 </html>

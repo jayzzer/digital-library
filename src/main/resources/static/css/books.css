@@ -127,6 +127,10 @@ a:hover {
     padding: 0 5px;
 }
 
+.no-books {
+    height: 50vh;
+}
+
 @media (min-width: 992px) {
     .navbar-expand-lg .navbar-custom-collapse {
         display: block;

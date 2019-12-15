@@ -103,7 +103,7 @@
                         </div>
                     </div>
                     <div class="show-more text-center">
-                        <a href="#" class="btn btn-outline-primary">Все бесплатные книги</a>
+                        <a href="#" th:href="@{/books(sort='price-u')}" class="btn btn-outline-primary">Все бесплатные книги</a>
                     </div>
                 </div>
                 <div class="category-block mt-4">
@@ -144,7 +144,7 @@
                         </div>
                     </div>
                     <div class="show-more text-center">
-                        <a href="#" class="btn btn-outline-primary">Все новинки</a>
+                        <a href="#" th:href="@{/books(sort='createdAt-d')}" class="btn btn-outline-primary">Все новинки</a>
                     </div>
                 </div>
                 <div class="category-block mt-4">
@@ -185,7 +185,7 @@
                         </div>
                     </div>
                     <div class="show-more text-center">
-                        <a href="#" class="btn btn-outline-primary">Весь топ книг</a>
+                        <a href="#" th:href="@{/books(sort='rating-d')}" class="btn btn-outline-primary">Весь топ книг</a>
                     </div>
                 </div>
             </div>
@@ -210,10 +210,10 @@
                     perView: 4
                 },
                 767: {
-                    perView: 3
+                    perView: 2
                 },
                 420: {
-                    perView: 2
+                    perView: 1
                 }
             }
         }).mount();
@@ -229,10 +229,10 @@
                     perView: 4
                 },
                 767: {
-                    perView: 3
+                    perView: 2
                 },
                 420: {
-                    perView: 2
+                    perView: 1
                 }
             }
         }).mount();
@@ -248,10 +248,10 @@
                     perView: 4
                 },
                 767: {
-                    perView: 3
+                    perView: 2
                 },
                 420: {
-                    perView: 2
+                    perView: 1
                 }
             }
         }).mount();

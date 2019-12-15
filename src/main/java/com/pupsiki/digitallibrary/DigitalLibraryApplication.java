@@ -1,10 +1,7 @@
 package com.pupsiki.digitallibrary;
 
 import com.github.javafaker.Faker;
-import com.pupsiki.digitallibrary.models.Book;
-import com.pupsiki.digitallibrary.models.Category;
-import com.pupsiki.digitallibrary.models.Deal;
-import com.pupsiki.digitallibrary.models.User;
+import com.pupsiki.digitallibrary.models.*;
 import com.pupsiki.digitallibrary.repositories.BookRepository;
 import com.pupsiki.digitallibrary.repositories.CategoryRepository;
 import com.pupsiki.digitallibrary.repositories.DealRepository;
