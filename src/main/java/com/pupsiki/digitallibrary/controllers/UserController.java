@@ -3,12 +3,15 @@ package com.pupsiki.digitallibrary.controllers;
 import com.pupsiki.digitallibrary.annotations.EmailExistsException;
 import com.pupsiki.digitallibrary.models.*;
 import com.pupsiki.digitallibrary.repositories.DealRepository;
+import com.pupsiki.digitallibrary.services.OnRegistrationCompleteEvent;
 import com.pupsiki.digitallibrary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +22,10 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class UserController {
@@ -28,6 +33,11 @@ public class UserController {
     private UserService service;
     @Autowired
     private DealRepository dealRepository;
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+    @Qualifier("messageSource")
+    @Autowired
+    private MessageSource messages;
 
     @GetMapping("/user")
     public String user(Model model, Authentication authentication) {
@@ -83,10 +93,39 @@ public class UserController {
             modelAndView.addObject("title", "Регистрация");
 
             return modelAndView;
-        }
-        else {
+        } else {
+            try {
+                String appUrl = request.getContextPath();
+                eventPublisher.publishEvent(new OnRegistrationCompleteEvent
+                        (registered, Locale.ENGLISH, appUrl));
+            } catch (Exception me) {
+                System.out.println(me);
+                ModelAndView modelAndView = new ModelAndView("layout", "user", user);
+                modelAndView.addObject("view", "registration");
+                modelAndView.addObject("title", "Регистрация");
+
+                return modelAndView;
+            }
+
             return new ModelAndView("redirect:/user");
         }
+    }
+
+    @GetMapping("/registrationConfirm")
+    public String confirmRegistration(Model model, @RequestParam("token") String token) {
+        VerificationToken verificationToken = service.getVerificationToken(token);
+
+        if (verificationToken == null) {
+            String message = "Неправильный токен!";
+            model.addAttribute("message", message);
+            return "redirect:/ulogin";
+        }
+
+        User user = verificationToken.getUser();
+
+        user.setActive(true);
+        service.saveRegisteredUser(user);
+        return "redirect:/ulogin";
     }
 
     private User createUserAccount(UserDto accountDto, BindingResult result) {
