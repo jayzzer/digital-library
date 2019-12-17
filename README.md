@@ -1,2 +1,19 @@
-# digital-library
-Project for course work
+# Электронная библиотека (Команда Gray Team)
+
+## Инструкция по запуску
+Для запуска приложения необходимо:
+1. установить PostgreSQL по инструкции с [сайта](https://www.postgresql.org/download/);
+2. создать пользователя "test" с паролем "1234":
+    ```bash
+    createuser --interactive --pwpromt
+    ```
+3. создать базу данных "library":
+    ```bash
+    createdb library
+    ```
+4. запустить приложение:
+    ```bash
+    mvn spring-boot:run
+    ```
+*PS: настройки можно изменить в файле application.properties.*  
+*PSS: при первом запуске запустится функция для заполнения базы данных (100000 записей), поэтому может грузится продолжительное время (около 5 мин).*

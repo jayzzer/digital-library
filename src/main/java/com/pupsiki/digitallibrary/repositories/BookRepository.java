@@ -9,6 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
 public interface BookRepository extends CrudRepository<Book, Integer>, PagingAndSortingRepository<Book, Integer> {
+    List<Book> findAll();
     List<Book> findTop10ByOrderByRatingDesc();
     List<Book> findTop10ByOrderByCreatedAtDesc();
     List<Book> findTop10ByPriceOrderByRatingDesc(float price);
