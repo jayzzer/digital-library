@@ -171,12 +171,18 @@
                             </li>
                         </th:block>
 
-                        <th:block th:if="${books.totalPages} <= 5">
+                        <th:block th:if="${books.totalPages} <= 5 and ${books.totalPages} != 0">
                             <li class="page" th:each="page : ${#numbers.sequence(1, books.totalPages)}"
                                 th:classappend="${currentPage} == ${page} ? active">
                                 <a href="#"
                                    th:href="@{/books(genre=${param.genre}, sort=${param.sort}, p=${page}-1)}"
                                    th:text="${page}"></a>
+                            </li>
+                        </th:block>
+
+                        <th:block th:if="${books.totalPages} == 0">
+                            <li class="page active">
+                                <a href="#" th:href="@{/books/search(text=${param.text}, p=0)}">1</a>
                             </li>
                         </th:block>
                     </th:block>

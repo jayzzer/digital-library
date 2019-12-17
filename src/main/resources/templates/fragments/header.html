@@ -32,8 +32,8 @@
                     <a class="nav-link" data-scroll href="#" th:href="${view} == 'index' ? '#top' : '/books?sort=rating-d'">Топ книг</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0 mr-2">
-                <input class="form-control mr-sm-2" type="search" placeholder="Поиск книг" aria-label="Search">
+            <form action="#" th:action="@{/books/search}" method="get" class="form-inline my-2 my-lg-0 mr-2">
+                <input class="form-control mr-sm-2" type="search" placeholder="Поиск книг" name="text" aria-label="Search">
                 <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Найти</button>
             </form>
             <a href="/ulogin" th:href="@{/ulogin}" th:if="${#authentication.getName()} == anonymousUser" class="btn btn-outline-success">Войти</a>

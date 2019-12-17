@@ -1,6 +1,7 @@
 package com.pupsiki.digitallibrary.models;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.stereotype.Indexed;
 
 import javax.persistence.*;
 import java.util.Date;

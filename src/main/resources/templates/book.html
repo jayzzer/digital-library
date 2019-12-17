@@ -23,7 +23,7 @@
                         <form action="/charge" th:action="@{/charge}" method="post" id="checkout-form">
                             <input type='hidden' th:value='${book.price}' name='amount'/>
                             <input type='hidden' th:value='${book.id}' name='bookId'/>
-                            <script
+                            <script th:if="${book.price > 0}"
                                     src='https://checkout.stripe.com/checkout.js'
                                     class='stripe-button'
                                     th:attr='data-key=${stripePublicKey},

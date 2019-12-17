@@ -13,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class BookController {
@@ -62,13 +60,31 @@ public class BookController {
         return "layout";
     }
 
+    @GetMapping("/books/search")
+    public String searchBooks(
+            Model model,
+            @RequestParam(name = "text", required = true, defaultValue = "") String text,
+            @RequestParam(name = "p", required = true, defaultValue = "0") int pageIndex
+    ) {
+        Pageable perPage = PageRequest.of(pageIndex, 20);
+        Page<Book> bookPage = bookRepository.findAllByTitleContainingIgnoreCase(text, perPage);
+
+        model.addAttribute("view", "search");
+        model.addAttribute("title", "Поиск");
+        model.addAttribute("books", bookPage);
+
+        return "layout";
+    }
+
     @RequestMapping(value = "/charge", method = RequestMethod.POST)
     public ModelAndView buyBook(HttpServletRequest request, Authentication authentication) throws Exception {
-        String token = request.getParameter("stripeToken");
         Double amount = Double.parseDouble(request.getParameter("amount"));
         Integer bookId = Integer.parseInt(request.getParameter("bookId"));
         Book book = bookRepository.findById(bookId).get();
-        stripeService.chargeNewCard(token, amount, book.getTitle());
+        if (amount > 0) {
+            String token = request.getParameter("stripeToken");
+            stripeService.chargeNewCard(token, amount, book.getTitle());
+        }
 
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         User user = userRepository.findById(userDetails.getId()).get();

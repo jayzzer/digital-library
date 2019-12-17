@@ -14,4 +14,5 @@ public interface BookRepository extends CrudRepository<Book, Integer>, PagingAnd
     List<Book> findTop10ByPriceOrderByRatingDesc(float price);
 
     Page<Book> findAllByGenre(String genre, Pageable pageable);
+    Page<Book> findAllByTitleContainingIgnoreCase(String title, Pageable pageable);
 }
