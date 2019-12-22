@@ -1,11 +1,15 @@
 package com.pupsiki.digitallibrary.models;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+//@Indexed
 @Table(name = "Deal")
 public class Deal {
     @Id
@@ -16,6 +20,7 @@ public class Deal {
     private User user;
     @ManyToOne
     @JoinColumn(name = "book_id")
+//    @IndexedEmbedded
     private Book book;
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

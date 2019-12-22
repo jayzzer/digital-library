@@ -1,24 +1,30 @@
 package com.pupsiki.digitallibrary.models;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.stereotype.Indexed;
+import org.hibernate.search.annotations.*;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
+@Indexed
+@Table(name = "Book")
 public class Book {
 
     @OneToMany(mappedBy = "book")
+    @IndexedEmbedded
     Set<Deal> deals;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @Field
     private String title;
     private String image;
+    @Field
     private String author;
     private String publisher;
+    @Field
     private String genre;
     @Column(length = 8192)
     private String description;
@@ -55,10 +61,6 @@ public class Book {
 
     public Date getCreatedAt() {
         return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     public String getImage() {

@@ -5,16 +5,21 @@ import com.pupsiki.digitallibrary.models.Book;
 import com.pupsiki.digitallibrary.models.Category;
 import com.pupsiki.digitallibrary.repositories.BookRepository;
 import com.pupsiki.digitallibrary.repositories.CategoryRepository;
+import com.pupsiki.digitallibrary.services.BookService;
+import org.apache.lucene.search.Query;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.FullTextQuery;
+import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Random;
-import java.util.Set;
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+import java.util.*;
 
 @SpringBootApplication
 @EnableCaching
@@ -24,6 +29,8 @@ public class DigitalLibraryApplication {
     private BookRepository bookRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private BookService bookService;
 
     public static void main(String[] args) {
         SpringApplication.run(DigitalLibraryApplication.class, args);
@@ -59,8 +66,8 @@ public class DigitalLibraryApplication {
             return;
         }
 
-        int booksCount = 95000;
-        int freeBooksCount = 5000;
+        int booksCount = 5000;
+        int freeBooksCount = 500;
         System.out.println("START SEEDING BOOKS!");
 
         Faker faker = new Faker(new Locale("ru"));
@@ -96,6 +103,13 @@ public class DigitalLibraryApplication {
 
         System.out.println("END SEEDING BOOKS!");
     }
+
+//    @Bean
+//    public void indexing() throws InterruptedException {
+//        EntityManager em = entityManagerFactory.createEntityManager();
+//        FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
+//        fullTextEntityManager.createIndexer().startAndWait();
+//    }
 
     private static int getRandomNumberInRange(int min, int max) {
 
