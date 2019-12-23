@@ -92,7 +92,7 @@ public class Book {
     }
 
     public void setTitle(String name) {
-        this.title = title;
+        this.title = name;
     }
 
     public String getAuthor() {
