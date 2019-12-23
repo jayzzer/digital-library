@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:fragment="head">
+        <link rel="stylesheet" href="#" th:href="@{/css/admin.css}">
+    </div>
+</head>
+<body>
+<div th:fragment="content" class="container">
+    <div class="row mt-4 mb-2">
+        <div class="col-12" th:if="${param.success} != null">
+            <div class="alert alert-success text-center" role="alert">
+                Книга успешно изменена!
+            </div>
+        </div>
+        <div class="col-12" th:if="${param.deleted} != null">
+            <div class="alert alert-success text-center" role="alert">
+                Книга успешно удалена!
+            </div>
+        </div>
+        <div class="col-12">
+            <h1>Панель администратора</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="row mb-2">
+                <div class="col-2 offset-10 text-right">
+                    <a href="#" th:href="@{/admin/add}" class="btn btn-primary">
+                        <i class="fas fa-plus-square"></i>
+                        Добавить
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                        <tr>
+                            <th scope="col">Действия</th>
+                            <th scope="col">Обложка</th>
+                            <th scope="col">Название</th>
+                            <th scope="col">Автор</th>
+                            <th scope="col">Жанр</th>
+                            <th scope="col">Год</th>
+                            <th scope="col">Издатель</th>
+                            <th scope="col">Описание</th>
+                            <th scope="col">Цена</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="book : ${books}">
+                            <td class="row">
+                                <div class="col-6">
+                                    <a href="#" th:href="@{/admin/edit/{id}(id = ${book.id})}"
+                                       class="btn btn-outline-info">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <form class="d-inline" action="#" th:action="@{/admin/delete/{id}(id = ${book.id})}"
+                                          method="post">
+                                        <button class="btn btn-outline-danger">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                            <td>
+                                <img src="#" th:src="@{/upload/{imgName}(imgName = ${book.image})}" alt="Обложка"
+                                     width="100px">
+                            </td>
+                            <td th:text="${book.title}"></td>
+                            <td th:text="${book.author}"></td>
+                            <td th:text="${book.genre}"></td>
+                            <td th:text="${book.year}"></td>
+                            <td th:text="${book.publisher}"></td>
+                            <td class="description">
+                                <div th:text="${book.description}"></div>
+                            </td>
+                            <td th:text="${book.price}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12">
+            <ul class="pagination d-block text-center"
+                th:with="currentPage=${param.p} != null ? ${T(Integer).parseInt(param.p[0]) + 1} : 1">
+                <li class="page prev-page" th:if="${currentPage} > 1">
+                    <a href="#"
+                       th:href="@{/admin(p=${currentPage}-2)}">«</a>
+                </li>
+                <th:block th:if="${currentPage} > 3">
+                    <th:block th:if="${books.totalPages} - ${currentPage} >= 3">
+                        <li class="page">
+                            <a href="#" th:href="@{/admin(text=${param.text}, p=0)}">1</a>
+                        </li>
+                        <li class="page empty">
+                            <a>...</a>
+                        </li>
+                        <li class="page"
+                            th:each="page : ${#numbers.sequence(currentPage-1, currentPage+1)}"
+                            th:classappend="${currentPage} == ${page} ? active">
+                            <a href="#" th:href="@{/admin(p=${page}-1)}"
+                               th:text="${page}"></a>
+                        </li>
+                        <li class="page empty">
+                            <a>...</a>
+                        </li>
+                        <li class="page">
+                            <a href="#"
+                               th:href="@{/admin(p=${books.totalPages}-1)}"
+                               th:text="${books.totalPages}"></a>
+                        </li>
+                    </th:block>
+
+                    <th:block th:if="${books.totalPages} - ${currentPage} < 3">
+                        <li class="page" th:if="${books.totalPages} > 4">
+                            <a href="#" th:href="@{/admin(p=0)}">1</a>
+                        </li>
+                        <li class="page empty" th:if="${books.totalPages} > 4">
+                            <a>...</a>
+                        </li>
+                        <li class="page"
+                            th:each="page : ${#numbers.sequence(books.totalPages - 3, books.totalPages)}"
+                            th:classappend="${currentPage} == ${page} ? active">
+                            <a href="#" th:href="@{/admin(p=${page}-1)}"
+                               th:text="${page}"></a>
+                        </li>
+                    </th:block>
+                </th:block>
+
+                <th:block th:if="${currentPage} <= 3">
+                    <th:block th:if="${books.totalPages} > 5">
+                        <li class="page" th:each="page : ${#numbers.sequence(1, 4)}"
+                            th:classappend="${currentPage} == ${page} ? active">
+                            <a href="#"
+                               th:href="@{/admin(p=${page}-1)}"
+                               th:text="${page}"></a>
+                        </li>
+                        <li class="page empty">
+                            <a>...</a>
+                        </li>
+                        <li class="page">
+                            <a href="#"
+                               th:href="@{/admin(p=${books.totalPages}-1)}"
+                               th:text="${books.totalPages}"></a>
+                        </li>
+                    </th:block>
+
+                    <th:block th:if="${books.totalPages} <= 5 and ${books.totalPages} != 0">
+                        <li class="page" th:each="page : ${#numbers.sequence(1, books.totalPages)}"
+                            th:classappend="${currentPage} == ${page} ? active">
+                            <a href="#"
+                               th:href="@{/admin(p=${page}-1)}"
+                               th:text="${page}"></a>
+                        </li>
+                    </th:block>
+
+                    <th:block th:if="${books.totalPages} == 0">
+                        <li class="page active">
+                            <a href="#" th:href="@{/admin(p=0)}">1</a>
+                        </li>
+                    </th:block>
+                </th:block>
+
+                <li class="page next-page" th:if="${currentPage} < ${books.totalPages}">
+                    <a href="#"
+                       th:href="@{/admin(p=${currentPage})}">»</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="scripts"></div>
+</body>
+</html>

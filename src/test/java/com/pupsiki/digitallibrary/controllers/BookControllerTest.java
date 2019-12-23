@@ -130,7 +130,7 @@ public class BookControllerTest {
         list.add(new Book("bookname", "book1.jpg", "author", "romashka", "genre", "dwacr", 1999, 235, 1234f));
         Page<Book> page = new PageImpl<Book>(list, PageRequest.of(1, 12), 1);
         Page<Book> books = Mockito.mock(Page.class);
-        Mockito.when(bookRepository.findAllByTitleContainingIgnoreCase("", PageRequest.of(1, 12))).thenReturn(page);
+//        Mockito.when(bookRepository.findAllByTitleContainingIgnoreCase("", PageRequest.of(1, 12))).thenReturn(page);
         this.mockMvc.perform(get("/books/search").
                 param("text", "man").
                 param("p", "1")).

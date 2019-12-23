@@ -38,7 +38,7 @@
             </form>
 
             <a href="/ulogin" th:href="@{/ulogin}" th:if="${#authentication.getName()} == anonymousUser" class="btn btn-outline-success">Войти</a>
-            <a href="/user" th:href="@{/user}" th:if="${#authentication.getName()} != anonymousUser" class="btn btn-success mr-2">
+            <a href="/user" th:href="${#authentication.getPrincipal().getName()} == 'Админ' ? '/admin' : '/user'" th:if="${#authentication.getName()} != anonymousUser" class="btn btn-success mr-2">
                 <span th:text="${#authentication.getPrincipal().getName()}"></span>
             </a>
             <form action="/logout" th:action="@{/logout}" method="post" th:if="${#authentication.getName()} != anonymousUser">

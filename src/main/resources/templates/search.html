@@ -22,7 +22,7 @@
                             <a href="#" th:href="@{/books/{id}(id = ${book.id})}">
                                 <div class="book p-2">
                                     <img class="book-photo"
-                                         th:src="@{/img/{imgName}.jpg(imgName = ${book.image})}" width="100%"/>
+                                         th:src="@{/upload/{imgName}(imgName = ${book.image})}" width="100%"/>
                                     <div class="rating mb-2">
                                                         <span th:with="ratingLoop=${T(Math).floor(book.rating)}, ratingEmpty=5-${ratingLoop}, ratingDec=${book.rating} % 1 &gt; 0.5 ? 2 : 1"
                                                               class="stars mr-2">

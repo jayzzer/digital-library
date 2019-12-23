@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:fragment="head">
+        <link rel="stylesheet" href="../static/css/registration.css" th:href="@{/css/registration.css}">
+    </div>
+</head>
+<body>
+<div th:fragment="content" class="container-fluid">
+    <div class="row">
+        <div class="col-12" th:if="${param.success} != null">
+            <div class="alert alert-success text-center" role="alert">
+                Книга успешно добавлена!
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-12 col-sm-12 col-md-5 col-lg-5">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-2">
+                            <a href="#" th:href="@{/admin}"><i class="fas fa-arrow-left"></i></a>
+                        </div>
+                        <div class="col-8 text-center" th:text="${title}">Добавить книгу</div>
+                        <div class="col-2"></div>
+                    </div>
+                </div>
+
+                <form action="#" th:action="${title == 'Редактировать книгу' ? '/admin/edit/' + bookId : '/admin/add' }"
+                      enctype="multipart/form-data" th:object="${book}"
+                      method="post">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="title">Название *</label>
+                            <input type="text" class="form-control" id="title" name="title" th:field="*{title}"
+                                   th:errorclass="is-invalid"
+                                   placeholder="Гарри Поттер и Философский камень" required>
+                            <ul class="error-list">
+                                <li th:each="err : ${#fields.errors('title')}" th:text="${err}"/>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group input-file" name="file">
+                                <input type="text" class="form-control" accept="image/*"
+                                       placeholder='Выберите изображение...'/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-secondary btn-reset" type="button">Сбросить</button>
+                                </span>
+                            </div>
+                            <ul class="error-list">
+                                <li th:if="${imgFail} != null">Необходимо загрузить изображение!</li>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label for="author">Автор *</label>
+                            <input type="text" class="form-control" id="author" name="author" th:field="*{author}"
+                                   th:errorclass="is-invalid"
+                                   placeholder="Агата Кристи" required>
+                            <ul class="error-list">
+                                <li th:each="err : ${#fields.errors('author')}" th:text="${err}"/>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label for="genre">Жанр *</label>
+                            <input type="text" class="form-control" id="genre" name="genre" th:field="*{genre}"
+                                   th:errorclass="is-invalid"
+                                   placeholder="Фантастика" required>
+                            <ul class="error-list">
+                                <li th:each="err : ${#fields.errors('genre')}" th:text="${err}"/>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label for="year">Год *</label>
+                            <input type="number" class="form-control" id="year" name="year" th:field="*{year}"
+                                   th:errorclass="is-invalid"
+                                   min="1" placeholder="1999" required>
+                            <ul class="error-list">
+                                <li th:each="err : ${#fields.errors('year')}" th:text="${err}"/>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label for="publisher">Издатель *</label>
+                            <input type="text" class="form-control" id="publisher" name="publisher"
+                                   th:field="*{publisher}" th:errorclass="is-invalid"
+                                   placeholder="МИФ" required>
+                            <ul class="error-list">
+                                <li th:each="err : ${#fields.errors('publisher')}" th:text="${err}"/>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Описание *</label>
+                            <textarea name="description" class="form-control" id="description" cols="30" rows="10"
+                                      placeholder="Описание книги" th:field="*{description}"></textarea>
+                            <ul class="error-list">
+                                <li th:each="err : ${#fields.errors('description')}" th:text="${err}"/>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Цена *</label>
+                            <input type="number" class="form-control" id="price" name="price" th:field="*{price}"
+                                   th:errorclass="is-invalid"
+                                   min="0" placeholder="1234.0" required>
+                            <ul class="error-list">
+                                <li th:each="err : ${#fields.errors('price')}" th:text="${err}"/>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row mb-2">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-block btn-primary">Сохранить</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:fragment="scripts">
+    <script>
+        function bs_input_file() {
+            $(".input-file").before(
+                function () {
+                    if (!$(this).prev().hasClass('input-ghost')) {
+                        var element = $("<input type='file' class='input-ghost' name='image' style='visibility:hidden; height:0'>");
+                        element.attr("name", $(this).attr("name"));
+                        element.change(function () {
+                            element.next(element).find('input').val((element.val()).split('\\').pop());
+                        });
+                        $(this).find("button.btn-choose").click(function () {
+                            element.click();
+                        });
+                        $(this).find("button.btn-reset").click(function () {
+                            element.val(null);
+                            $(this).parents(".input-file").find('input').val('');
+                        });
+                        $(this).find('input').css("cursor", "pointer");
+                        $(this).find('input').mousedown(function () {
+                            $(this).parents('.input-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+
+        $(function () {
+            bs_input_file();
+        });
+    </script>
+</div>
+</body>
+</html>
