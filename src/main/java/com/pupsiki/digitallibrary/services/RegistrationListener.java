@@ -41,7 +41,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-        String htmlMsg = "<h3>Вы успешно зарегистрировались!</h3><a href=\"http://78.155.199.227:8081" + confirmationUrl + "\">Нажмите здесь для подтверждения почты</a>";
+        String htmlMsg = "<h3>Вы успешно зарегистрировались!</h3><a href=\"http://localhost:8081" + confirmationUrl + "\">Нажмите здесь для подтверждения почты</a>";
         helper.setText(htmlMsg, true);
         helper.setTo(recipientAddress);
         helper.setSubject(subject);

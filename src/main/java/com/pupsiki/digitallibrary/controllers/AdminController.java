@@ -109,7 +109,7 @@ public class AdminController {
                             book.getDescription(),
                             book.getYear(),
                             book.getPrice(),
-                            getRandomNumberInRange(0, 5)
+                            (float) Math.floor(getRandomNumberInRange(0, 5))
                     )
             );
             storageService.uploadFile(file);

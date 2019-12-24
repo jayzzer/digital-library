@@ -18,10 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Random;
-import java.util.Set;
+import java.lang.reflect.Array;
+import java.util.*;
 
 @SpringBootApplication
 @EnableCaching
@@ -62,14 +60,24 @@ public class DigitalLibraryApplication {
 
         System.out.println("START SEEDING CATEGORIES!");
 
-        Faker faker = new Faker(new Locale("ru"));
-        Set<String> uniqueCategories = new HashSet<>();
-        while (uniqueCategories.size() < 20) {
-            String category = faker.book().genre();
-            uniqueCategories.add(category);
-        }
+        String[] categories = new String[]{
+                "Психология",
+                "Философия",
+                "Религия",
+                "Искусство",
+                "Красота. Здоровье. Спорт.",
+                "Наука и техника",
+                "Образование (учебная литература)",
+                "Зарубежная проза",
+                "Русская проза",
+                "Экономика, бизнес",
+                "Книги для детей",
+                "Книги на иностранных языках",
+                "Информационные технологии",
+                "Кулинария"
+        };
 
-        for (String uniqueCategory : uniqueCategories) {
+        for (String uniqueCategory : categories) {
             categoryRepository.save(new Category(
                     uniqueCategory
             ));
@@ -78,12 +86,6 @@ public class DigitalLibraryApplication {
         System.out.println("END SEEDING CATEGORIES!");
     }
 
-    @Bean
-    public void indexing() throws InterruptedException {
-        EntityManager em = entityManagerFactory.createEntityManager();
-        FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
-        fullTextEntityManager.createIndexer().startAndWait();
-    }
 
     @Bean
     public void seedBooks() {
@@ -95,6 +97,7 @@ public class DigitalLibraryApplication {
         int freeBooksCount = 500;
         System.out.println("START SEEDING BOOKS!");
 
+        List<Category> categories = categoryRepository.findAllByOrderByName();
         Faker faker = new Faker(new Locale("ru"));
         for (int i = 0; i < booksCount; i++) {
             System.out.println(i + "/" + booksCount);
@@ -103,7 +106,7 @@ public class DigitalLibraryApplication {
                     "book" + getRandomNumberInRange(1, 23) + ".jpg",
                     faker.book().author(),
                     faker.book().publisher(),
-                    faker.book().genre(),
+                    categories.get(getRandomNumberInRange(0, categories.size()-1)).getName(),
                     faker.lorem().paragraph(10),
                     faker.number().numberBetween(1900, 2019),
                     faker.number().numberBetween(0, 2000),
@@ -118,7 +121,7 @@ public class DigitalLibraryApplication {
                     "book" + getRandomNumberInRange(1, 23) + ".jpg",
                     faker.book().author(),
                     faker.book().publisher(),
-                    faker.book().genre(),
+                    categories.get(getRandomNumberInRange(0, categories.size()-1)).getName(),
                     faker.lorem().paragraph(10),
                     faker.number().numberBetween(1900, 2019),
                     0,
@@ -127,6 +130,13 @@ public class DigitalLibraryApplication {
         }
 
         System.out.println("END SEEDING BOOKS!");
+    }
+
+    @Bean
+    public void indexing() throws InterruptedException {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
+        fullTextEntityManager.createIndexer().startAndWait();
     }
 
     @Bean
