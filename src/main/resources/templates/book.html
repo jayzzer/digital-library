@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-12 col-md-4">
                         <img class="book-img mb-3" src="#" width="100%"
-                             th:src="@{/img/{bookImg}.jpg(bookImg = ${book.image})}" alt="Обложка"/>
+                             th:src="@{/upload/{bookImg}(bookImg = ${book.image})}" alt="Обложка"/>
                         <form action="/charge" th:action="@{/charge}" method="post" id="checkout-form">
                             <input type='hidden' th:value='${book.price}' name='amount'/>
                             <input type='hidden' th:value='${book.id}' name='bookId'/>

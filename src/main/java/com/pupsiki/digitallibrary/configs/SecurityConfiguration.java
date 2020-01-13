@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -22,6 +23,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Qualifier("customUserDetailsService")
     @Autowired
     UserDetailsService userDetailsService;
+
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new CustomAuthenticationSuccessHandler();
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -35,12 +41,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/css/**").permitAll()
                     .antMatchers("/img/**").permitAll()
+                    .antMatchers("/upload/**").permitAll()
                     .antMatchers("/js/**").permitAll()
                     .antMatchers("/webfonts/**").permitAll()
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/user/**").hasRole("USER")
                     .antMatchers("/registration").permitAll()
                     .antMatchers("/books/**").permitAll()
+                    .antMatchers("/api/**").permitAll()
                     .antMatchers("/registrationConfirm").permitAll()
                     .antMatchers("/charge").permitAll()
                     .antMatchers("/").permitAll()
@@ -49,7 +57,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                     .loginPage("/ulogin")
                     .loginProcessingUrl("/login")
-                    .defaultSuccessUrl("/user")
+                    .successHandler(myAuthenticationSuccessHandler())
+//                    .defaultSuccessUrl("/user")
                     .permitAll()
                     .and()
                 .logout()

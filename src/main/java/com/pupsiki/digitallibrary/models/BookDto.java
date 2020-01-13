@@ -1,54 +1,53 @@
 package com.pupsiki.digitallibrary.models;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.search.annotations.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-import javax.persistence.*;
-import java.util.Date;
-import java.util.Set;
+public class BookDto {
 
-@Entity
-@Indexed
-@Table(name = "Book")
-public class Book {
-
-    @OneToMany(mappedBy = "book")
-    @IndexedEmbedded
-    Set<Deal> deals;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    @Field
+    @NotNull
+    @NotEmpty
     private String title;
-    private String image;
-    @Field
+    @NotNull
+    @NotEmpty
     private String author;
+    @NotNull
+    @NotEmpty
     private String publisher;
-    @Field
+    @NotNull
+    @NotEmpty
     private String genre;
-    @Column(length = 8192)
+    @NotNull
+    @NotEmpty
     private String description;
+    @NotNull
+    @Min(1)
     private int year;
+    @NotNull
+    @Min(0)
     private float price;
-    private float rating;
-    @Column(nullable = false, updatable = false)
-    @CreationTimestamp
-    private Date createdAt;
 
 
-    public Book() {
+    public BookDto() {
     }
 
-    public Book(String title, String image, String author, String publisher, String genre, String description, int year, float price, float rating) {
+    public BookDto(String title, String author, String publisher, String genre, String description, int year, float price) {
         this.title = title;
-        this.image = image;
         this.author = author;
         this.publisher = publisher;
         this.genre = genre;
         this.description = description;
         this.year = year;
         this.price = price;
-        this.rating = rating;
+    }
+
+    @Override
+    public String toString() {
+        return "Название: " + title +
+                ", Автор: " + author + ", Издатель: " + publisher +
+                ", Жанр: " + genre + ", Описание: " + description +
+                ", Год: " + year + ", Цена: " + price;
     }
 
     public String getDescription() {
@@ -57,34 +56,6 @@ public class Book {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public float getRating() {
-        return rating;
-    }
-
-    public void setRating(float rating) {
-        this.rating = rating;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {

@@ -15,14 +15,14 @@
     <div class="row">
         <div class="col-12">
             <div class="card w-100">
-                <div class="card-body" th:classappend="${books.totalElements} == 0 ? 'no-books'">
+                <div class="card-body">
                     <h4 class="text-center" th:unless="${books.totalElements} > 0">Книги не найдены</h4>
-                    <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 row-cols-lg-5" th:if="${books.totalElements} > 0">
+                    <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 row-cols-lg-5">
                         <div class="col mb-4" th:each="book : ${books}">
                             <a href="#" th:href="@{/books/{id}(id = ${book.id})}">
                                 <div class="book p-2">
                                     <img class="book-photo"
-                                         th:src="@{/img/{imgName}.jpg(imgName = ${book.image})}" width="100%"/>
+                                         th:src="@{/upload/{imgName}(imgName = ${book.image})}" width="100%"/>
                                     <div class="rating mb-2">
                                                         <span th:with="ratingLoop=${T(Math).floor(book.rating)}, ratingEmpty=5-${ratingLoop}, ratingDec=${book.rating} % 1 &gt; 0.5 ? 2 : 1"
                                                               class="stars mr-2">
@@ -82,10 +82,10 @@
                     </th:block>
 
                     <th:block th:if="${books.totalPages} - ${currentPage} < 3">
-                        <li class="page">
+                        <li class="page" th:if="${books.totalPages} > 4">
                             <a href="#" th:href="@{/books/search(text=${param.text}, p=0)}">1</a>
                         </li>
-                        <li class="page empty">
+                        <li class="page empty" th:if="${books.totalPages} > 4">
                             <a>...</a>
                         </li>
                         <li class="page"

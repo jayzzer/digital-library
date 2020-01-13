@@ -4,14 +4,13 @@ import com.pupsiki.digitallibrary.models.*;
 import com.pupsiki.digitallibrary.repositories.BookRepository;
 import com.pupsiki.digitallibrary.repositories.DealRepository;
 import com.pupsiki.digitallibrary.repositories.UserRepository;
+import com.pupsiki.digitallibrary.services.BookService;
 import com.pupsiki.digitallibrary.services.CategoryService;
 import com.pupsiki.digitallibrary.services.StripeService;
+import org.hibernate.search.exception.EmptyQueryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,6 +34,8 @@ public class BookController {
     CategoryService categoryService;
     @Autowired
     StripeService stripeService;
+    @Autowired
+    BookService bookService;
 
     @Value("${STRIPE_PUBLIC_KEY}")
     private String stripePublicKey;
@@ -66,14 +68,28 @@ public class BookController {
             @RequestParam(name = "text", required = true, defaultValue = "") String text,
             @RequestParam(name = "p", required = true, defaultValue = "0") int pageIndex
     ) {
-        Pageable perPage = PageRequest.of(pageIndex, 20);
-        Page<Book> bookPage = bookRepository.findAllByTitleContainingIgnoreCase(text, perPage);
+        Page<Book> books;
+        try {
+            books = bookService.findBooks(text, pageIndex, 15);
+        } catch (EmptyQueryException e) {
+            books = new PageImpl<>(new ArrayList<>());
+        }
 
         model.addAttribute("view", "search");
         model.addAttribute("title", "Поиск");
-        model.addAttribute("books", bookPage);
+        model.addAttribute("books", books);
 
         return "layout";
+    }
+
+    @GetMapping("/api/search")
+    @ResponseBody
+    public List<Book> searchBooksJSON(@RequestParam(name = "text", required = true, defaultValue = "") String text) {
+        try {
+            return bookService.findBooks(text, 0, 5).getContent();
+        } catch (EmptyQueryException e) {
+            return new ArrayList<>();
+        }
     }
 
     @RequestMapping(value = "/charge", method = RequestMethod.POST)

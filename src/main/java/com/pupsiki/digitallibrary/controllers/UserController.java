@@ -26,6 +26,7 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -39,6 +40,17 @@ public class UserController {
     @Autowired
     private MessageSource messages;
 
+    @GetMapping("/registration")
+    public String registrationPage(Model model) {
+        model.addAttribute("view", "registration");
+        model.addAttribute("title", "Регистрация");
+        UserDto user = new UserDto();
+        model.addAttribute("user", user);
+
+        return "layout";
+    }
+
+
     @GetMapping("/user")
     public String user(Model model, Authentication authentication) {
         CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
@@ -51,15 +63,7 @@ public class UserController {
         return "layout";
     }
 
-    @GetMapping("/registration")
-    public String registrationPage(Model model) {
-        model.addAttribute("view", "registration");
-        model.addAttribute("title", "Регистрация");
-        UserDto user = new UserDto();
-        model.addAttribute("user", user);
 
-        return "layout";
-    }
 
     @GetMapping("/ulogin")
     public String loginPage(
