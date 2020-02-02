@@ -1,0 +1,45 @@
+.description {
+    overflow: auto;
+}
+
+.description div {
+    height: 100px;
+}
+
+.page {
+    display: inline-block;
+    border-radius: 20px;
+}
+
+.page:hover {
+    background-color: #e2e2e2;
+}
+
+.page a {
+    color: #000;
+    padding: 0 8px;
+}
+
+.page.active {
+    background-color: #3f4fa1;
+}
+
+.page.active a {
+    color: #fff;
+}
+
+.page.empty a {
+    padding: 0 5px;
+}
+
+.fas.fa-plus-square {
+    font-size: 20px;
+}
+
+.fa-edit {
+    font-size: 15px;
+}
+
+.btn-outline-info, .btn-outline-danger {
+    width: 40px;
+}

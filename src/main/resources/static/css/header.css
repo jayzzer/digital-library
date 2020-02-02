@@ -1,3 +1,25 @@
 .navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover {
     color: #233087;
 }
+
+#search-form {
+    position: relative;
+}
+
+#book_list {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    left: 0;
+    top: 40px;
+    padding: 0;
+}
+
+.autoComplete_result {
+    margin: 0;
+    max-width: none;
+}
+
+.autoComplete_result:hover {
+    background-color: rgb(255, 248, 248);
+}
